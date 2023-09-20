@@ -6,7 +6,7 @@
  * @parsed_command: An array of strings representing the command and its
  * arguments.
  * @argv: An array of strings representing the program's arguments.
- *
+ * @index: The index of the command in the input.
  * Return: The exit status of the executed command.
  */
 int execute_command(char **parsed_command, char **argv, int index)
