@@ -9,7 +9,7 @@
 int main(int ac, char **argv)
 {
 	char *input_line = NULL, **parsed_command = NULL;
-	int exit_status = 0;
+	int exit_status = 0, index = 0;
 	(void) ac;
 
 	while (1)
@@ -21,10 +21,11 @@ int main(int ac, char **argv)
 				write(STDOUT_FILENO, "\n", 1);
 			return (exit_status);
 		}
+		index++;
 		parsed_command = tokenize_input(input_line);
 		if (!parsed_command)
 			continue;
 
-		exit_status = execute_command(parsed_command, argv);
+		exit_status = execute_command(parsed_command, argv, index);
 	}
 }

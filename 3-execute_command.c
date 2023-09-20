@@ -9,25 +9,34 @@
  *
  * Return: The exit status of the executed command.
  */
-int execute_command(char **parsed_command, char **argv)
+int execute_command(char **parsed_command, char **argv, int index)
 {
+	char *full_command_path;
 	pid_t child_pid;
 	int status;
+
+	full_command_path = getPath(parsed_command[0]);
+	if (!full_command_path)
+	{
+		printNotFoundError(argv[0], parsed_command[0], index);
+		free2DArray(parsed_command);
+		return (127);
+	}
 
 	child_pid = fork();
 	if (child_pid == 0)
 	{
-		if (execve(parsed_command[0], parsed_command, environ) == -1)
+		if (execve(full_command_path, parsed_command, environ) == -1)
 		{
-			perror(argv[0]);
+			free(full_command_path), full_command_path = NULL;
 			free2DArray(parsed_command);
-			exit(127);
 		}
 	}
 	else
 	{
 		waitpid(child_pid, &status, 0);
 		free2DArray(parsed_command);
+		free(full_command_path), full_command_path = NULL;
 	}
 	return (WEXITSTATUS(status));
 }

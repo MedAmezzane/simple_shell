@@ -16,7 +16,7 @@ extern char **environ;
 
 char *read_line(void);
 char **tokenize_input(char *line);
-int execute_command(char **command, char **argv);
+int execute_command(char **parsed_command, char **argv, int index);
 
 char *_strdup(char *str);
 int _strcmp(char *s1, char *s2);
@@ -25,5 +25,12 @@ char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
 
 void free2DArray(char **array);
+void printNotFoundError(char *programName, char *command, int index);
+char *_itoa(int n);
+void reverse_string(char *str, int len);
+
+char *getEnvironmentVariable(char *variableName);
+char *getPath(char *command);
+
 
 #endif
