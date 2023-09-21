@@ -15,7 +15,7 @@ char *getEnvironmentVariable(char *variableName)
 	{
 		currentEntry = _strdup(environ[index]);
 		key = strtok(currentEntry, "=");
-		if (strcmp(key, variableName) == 0)
+		if (_strcmp(key, variableName) == 0)
 		{
 			value = strtok(NULL, "\n");
 			environmentValue = _strdup(value);
